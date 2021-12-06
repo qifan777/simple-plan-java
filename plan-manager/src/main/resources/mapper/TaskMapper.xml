@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jcheng.plan.dao.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jcheng.plan.model.Task">
+        <id column="task_id" property="taskId"/>
+        <result column="title" property="title"/>
+        <result column="checked" property="checked"/>
+        <result column="description" property="description"/>
+        <result column="deadline" property="deadline"/>
+        <result column="remind_time" property="remindTime"/>
+        <result column="appendix" property="appendix"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <collection property="steps" ofType="com.jcheng.plan.model.Step">
+            <id column="step_id" property="stepId"/>
+            <result column="content" property="content"/>
+            <result column="s_checked" property="checked"/>
+            <result column="task_id2" property="taskId"/>
+        </collection>
+    </resultMap>
+    <select id="sharedTasks" resultMap="BaseResultMap">
+        select pt.*
+        from pm_task_user ptu
+                 left join pm_task pt on ptu.task_id = pt.task_id
+        where ptu.user_id = #{userId}
+          and ptu.deleted = false
+          and pt.deleted = false
+    </select>
+    <select id="findOne" resultMap="BaseResultMap">
+        select *, ps2.checked 's_checked',ps2.task_id 'task_id2'
+        from pm_task pt
+                 left join (select * from pm_step ps where ps.deleted = false) ps2 on pt.task_id = ps2.task_id
+        where pt.task_id = #{taskId}
+          and pt.deleted = false
+    </select>
+
+</mapper>

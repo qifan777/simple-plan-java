@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jcheng.plan.dao.ListMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jcheng.plan.model.List">
+        <id column="list_id" property="listId"/>
+        <result column="title" property="title"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <collection property="tasks" ofType="com.jcheng.plan.model.Task">
+            <id column="task_id" property="taskId"/>
+            <result column="t_title" property="title"/>
+            <result column="checked" property="checked"/>
+            <result column="description" property="description"/>
+            <result column="deadline" property="deadline"/>
+            <result column="remind_time" property="remindTime"/>
+            <result column="appendix" property="appendix"/>
+            <result column="user_id" property="userId"/>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="BaseResultMap">
+        select *, pt.title 't_title'
+        from pm_list pl
+                 left join (select * from pm_list_task where deleted = false) plt on pl.list_id = plt.list_id
+                 left join (select * from pm_task where deleted = false) pt on pt.task_id = plt.task_id
+        where pl.user_id = #{userId}
+          and pl.deleted = false
+    </select>
+    <select id="findOne" resultMap="BaseResultMap">
+        select *, pt.title 't_title'
+        from pm_list pl
+                 left join (select * from pm_list_task where deleted = false) plt on pl.list_id = plt.list_id
+                 left join (select * from pm_task where deleted = false) pt on pt.task_id = plt.task_id
+        where pl.list_id = #{id}
+          and pl.deleted = false
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: gateway-system
+          uri: http://cloud-system:7770
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+        - id: gateway-plan
+          uri: http://cloud-plan:7772
+          predicates:
+            - Path=/plan/**
+          filters:
+            - StripPrefix=1
+      default-filters:
+        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+server:
+  port: 80

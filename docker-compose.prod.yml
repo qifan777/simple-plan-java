@@ -1,0 +1,92 @@
+version: "3.7"
+services:
+  gateway:
+    container_name: cloud-gateway
+    ports:
+      - 8080:80
+    networks:
+      mynet:
+        aliases:
+          - cloud-gateway
+    image: registry.cn-hangzhou.aliyuncs.com/jarcheng/cloud-gateway
+    depends_on:
+      - mysql
+      - redis
+  system:
+    container_name: cloud-system
+    networks:
+      mynet:
+        aliases:
+          - cloud-system
+    image: registry.cn-hangzhou.aliyuncs.com/jarcheng/cloud-system
+    depends_on:
+      - mysql
+      - redis
+  plan-mananger:
+    container_name: cloud-plan
+    networks:
+      mynet:
+        aliases:
+          - cloud-plan
+    image: registry.cn-hangzhou.aliyuncs.com/jarcheng/cloud-plan-manager
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: mysql:8.0.26
+    container_name: cloud-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      mynet:
+        aliases:
+          - cloud-mysql
+  redis:
+    image: redis:6.2.5
+    container_name: cloud-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6333:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      mynet:
+        aliases:
+          - cloud-redis
+  #  nacos:
+  #    image: nacos/nacos-server:2.0.2
+  #    container_name: mynacos
+  #    environment:
+  #      MODE: standalone
+  #    ports:
+  #    - 8848:8848
+  #    networks:
+  #      mynet:
+  #        aliases:
+  #          - nacos
+#  rabbitmq:
+#    image: circleci/rabbitmq-delayed:3.8.9-management-38
+#    container_name: cloud-rabbitmq
+#    environment:
+#      RABBITMQ_DEFAULT_USER: root
+#      RABBITMQ_DEFAULT_PASS: 123456
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    volumes:
+#      - rabbitmq-data:/var/lib/rabbitmq
+#    networks:
+#      mynet:
+#        aliases:
+#          - cloud-rabbitmq
+networks:
+  mynet:
+    external: true
+volumes:
+  mysql-data: { }
+  redis-data: { }
+  rabbitmq-data: { }
