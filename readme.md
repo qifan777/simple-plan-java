@@ -27,7 +27,6 @@ cloud_base.sql是系统模块的sql文件 cloud_plan_manager.sql是计划管理�
 127.0.0.1 cloud-plan
 ```
 
-### 以下不用安装
 
 ### 安装rabbitmq(自带延迟消息插件)
 
@@ -37,6 +36,9 @@ docker run  --name myrabbit -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PA
 docker pull 
 ```
 
+
+
+### 以下不用安装
 ### 安装nacos(不使用配置中心)
 
 ```
