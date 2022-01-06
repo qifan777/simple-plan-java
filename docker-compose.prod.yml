@@ -68,21 +68,21 @@ services:
   #      mynet:
   #        aliases:
   #          - nacos
-#  rabbitmq:
-#    image: circleci/rabbitmq-delayed:3.8.9-management-38
-#    container_name: cloud-rabbitmq
-#    environment:
-#      RABBITMQ_DEFAULT_USER: root
-#      RABBITMQ_DEFAULT_PASS: 123456
-#    ports:
-#      - 5672:5672
-#      - 15672:15672
-#    volumes:
-#      - rabbitmq-data:/var/lib/rabbitmq
-#    networks:
-#      mynet:
-#        aliases:
-#          - cloud-rabbitmq
+  rabbitmq:
+    image: circleci/rabbitmq-delayed:3.8.9-management-38
+    container_name: cloud-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 123456
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      mynet:
+        aliases:
+          - cloud-rabbitmq
 networks:
   mynet:
     external: true

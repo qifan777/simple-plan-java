@@ -14,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface TaskService extends IService<Task> {
     String share(Integer taskId);
     Boolean join(String key);
+    void  remind(Task task);
 }

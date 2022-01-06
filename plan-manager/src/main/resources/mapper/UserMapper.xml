@@ -4,13 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.jcheng.plan.model.PmUser">
-        <id column="user_id" property="userId" />
-        <result column="sys_user_id" property="sysUserId" />
-        <result column="nick_name" property="nickName" />
-        <result column="avatar" property="avatar" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="deleted" property="deleted" />
+        <id column="user_id" property="userId"/>
+        <result column="sys_user_id" property="sysUserId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="openId" property="openId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
 
 </mapper>

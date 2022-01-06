@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: dev
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 10MB
+      # 设置总上传的文件大小
+      max-request-size: 20MB
 feign:
   circuitbreaker:
     enabled: true
@@ -24,3 +30,7 @@ server:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#替换成自己的微信appId和密钥 下面是随便输入的运行不起来
+wechat:
+  appId: wx299a0ab27782093h
+  appSecret: 1032bbd5130ebbf6b025f7eb79911e50

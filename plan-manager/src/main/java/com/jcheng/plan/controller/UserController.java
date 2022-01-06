@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.jcheng.api.model.system.User;
 import com.jcheng.api.service.system.RemoteAuthService;
 import com.jcheng.common.annotation.JWTIgnore;
+import com.jcheng.common.annotation.RepeatSubmit;
 import com.jcheng.common.constants.HttpStatus;
 import com.jcheng.common.domain.R;
 import com.jcheng.common.exception.CustomException;
@@ -33,31 +34,6 @@ public class UserController {
     RemoteAuthService remoteAuthService;
     @Autowired
     UserService userService;
-
-    @JWTIgnore
-    @PostMapping("signUp")
-    public R<SaTokenInfo> signUp(@RequestBody @Validated User user) throws Throwable {
-        R<SaTokenInfo> res = remoteAuthService.signUp(user);
-
-        if (res.getCode() == HttpStatus.ERROR) {
-            throw new CustomException(res.getMsg());
-        }
-        PmUser pmUser = new PmUser();
-        pmUser.setSysUserId(Integer.parseInt(res.getData().loginId.toString()));
-        pmUser.setNickName(user.getUserName());
-        userService.save(pmUser);
-        return res;
-    }
-
-    @JWTIgnore
-    @PostMapping("login")
-    public R<SaTokenInfo> login(@RequestBody @Validated User user) throws Throwable {
-        R<SaTokenInfo> res = remoteAuthService.login(user);
-        if (res.getCode() == HttpStatus.ERROR) {
-            throw new CustomException(res.getMsg());
-        }
-        return res;
-    }
 
     @GetMapping("info")
     public R<PmUser> getUserInfo() {

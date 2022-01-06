@@ -54,6 +54,7 @@ public class TaskController {
         task.getSteps().forEach(step -> step.setTaskId(task.getTaskId()));
         stepService.saveBatch(task.getSteps());
         listTaskService.save(new ListTask().setTaskId(task.getTaskId()).setListId(task.getListId()));
+        taskService.remind(task);
         return R.ok(true);
     }
 
@@ -78,12 +79,18 @@ public class TaskController {
     @PostMapping("update")
     @Transactional
     public R<Boolean> update(@RequestBody Task task) {
+        int loginIdAsInt = StpUtil.getLoginIdAsInt();
+        TaskUser one = taskUserService.getOne(Wrappers.<TaskUser>lambdaQuery().eq(TaskUser::getUserId, loginIdAsInt));
+        if (one == null && loginIdAsInt != task.getUserId()) {
+            throw new CustomException("权限不足");
+        }
         if (task.getSteps() != null) {
             stepService.remove(Wrappers.<Step>lambdaQuery().eq(Step::getTaskId, task.getTaskId()));
             task.getSteps().forEach(step -> step.setTaskId(task.getTaskId()));
             stepService.saveBatch(task.getSteps());
         }
         taskService.updateById(task);
+        taskService.remind(task);
         return R.ok(true);
     }
 
@@ -98,7 +105,7 @@ public class TaskController {
     @GetMapping("share")
     public R<String> share(Integer taskId) {
         Task task = taskService.getById(taskId);
-        if (!task.getUserId().equals(StpUtil.getLoginIdAsInt())){
+        if (!task.getUserId().equals(StpUtil.getLoginIdAsInt())) {
             throw new CustomException("权限不足无法分享");
         }
         return R.ok(taskService.share(taskId));

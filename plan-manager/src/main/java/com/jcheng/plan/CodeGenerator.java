@@ -55,7 +55,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
         //对那一张表生成代码
-        strategy.setInclude("pm_list", "pm_list_task", "pm_user", "pm_task", "pm_task_user","pm_step");
+        strategy.setInclude("pm_feedback");
         //数据库表映射到实体的命名策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         //生成实体时去掉表前缀

@@ -22,7 +22,7 @@
         </collection>
     </resultMap>
     <select id="findAll" resultMap="BaseResultMap">
-        select *, pt.title 't_title'
+        select pl.*, pt.*, pt.title 't_title'
         from pm_list pl
                  left join (select * from pm_list_task where deleted = false) plt on pl.list_id = plt.list_id
                  left join (select * from pm_task where deleted = false) pt on pt.task_id = plt.task_id

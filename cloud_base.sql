@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 06/12/2021 16:49:29
+ Date: 06/01/2022 11:05:51
 */
 
 SET NAMES utf8mb4;
@@ -112,13 +112,16 @@ CREATE TABLE `sys_user`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (2, NULL, '起凡', '新用户', '00', '', '', '0', '', 'a27a1b5cb8b4a600a19aea462ec0d592', '0', '', NULL, NULL, '', '', '2021-11-01 09:31:55', '2021-11-01 09:31:55', 0);
 INSERT INTO `sys_user` VALUES (6, NULL, 'admin', '新用户', '00', '', '', '0', '', 'a66abb5684c45962d887564f08346e8d', '0', '', NULL, NULL, '', '', '2021-11-10 16:41:20', '2021-11-10 16:41:20', 0);
+INSERT INTO `sys_user` VALUES (7, NULL, '123456789', '新用户', '00', '', '', '0', '', '541c5bb4fa09d917ca60469cf9b64533', '0', '', NULL, NULL, '', '', '2021-11-15 00:07:36', '2021-11-15 00:07:36', 0);
+INSERT INTO `sys_user` VALUES (8, NULL, '测试账号', '新用户', '00', '', '', '0', '', '7548d38c22820853e50f7bc62ad551cb', '0', '', NULL, NULL, '', '', '2021-12-07 15:20:33', '2021-12-07 15:20:33', 0);
+INSERT INTO `sys_user` VALUES (9, NULL, 'rkzxc2mhhu', '新用户', '00', '', '', '0', '', '1814d11217622a14badffbb5211d4b87', '0', '', NULL, NULL, '', '', '2021-12-07 15:35:59', '2021-12-07 15:35:59', 0);
 
 -- ----------------------------
 -- Table structure for sys_user_role

@@ -49,7 +49,7 @@ public class ListController {
 
     @GetMapping("findAll")
     public R<Page<List>> findAll(BaseSearchVO baseSearchVO) {
-        Page<List> listPage = new Page<>(baseSearchVO.getPageNum(), 10);
+        Page<List> listPage = new Page<>(baseSearchVO.getPageNum(), 100000);
         return R.ok(listMapper.findAll(listPage, StpUtil.getLoginIdAsInt()));
     }
 

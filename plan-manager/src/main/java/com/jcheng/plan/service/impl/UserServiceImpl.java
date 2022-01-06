@@ -17,9 +17,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, PmUser> implements UserService {
 
-    @Override
-    public Boolean signUp(PmUser pmUser) {
-        save(pmUser);
-        return true;
-    }
+
 }

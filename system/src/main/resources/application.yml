@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: dev
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 10MB
+      # 设置总上传的文件大小
+      max-request-size: 20MB
 sa-token:
   # token名称 (同时也是cookie名称)
   token-name: jctoken
@@ -21,11 +27,11 @@ server:
 feign:
   circuitbreaker:
     enabled: true
-#阿里云oss,下面是示例，需要替换成自己的阿里云oss
+#替换成自己的阿里云OSS 下面是随便输入的运行不起来
 oss:
   endpoint: https://oss-cn-qingdao.aliyuncs.com
-  accessKeyId: LTAI4GKTxXau64EuR6jSwini
-  accessKeySecret: GbD2NTSx3EHRt5YoTSMr6ngTRPbFyU
+  accessKeyId: LTAI4DATxXxu54EuR6jSwini
+  accessKeySecret: FbD1NTSn6EHAt2YoTSMr6ngTRPbFyH
   bucketName: my-community
 mybatis-plus:
   configuration:
